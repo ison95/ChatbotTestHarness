@@ -1,0 +1,2 @@
+<H2> AI Output Testing Harness V1</H2>
+The first iteration of this project is intended to be a basic test of the outputs for a chatbot (for now, OpenAI's ChatGPT) to ensure that the responses provided fulfill a certain set of parameters that are provided. 
