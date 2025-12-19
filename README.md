@@ -4,7 +4,7 @@ This project is a lightweight, dataset-driven testing harness for evaluating the
 
 The goal of this project is to explore practical testing strategies for AI systems using a traditional QA mindset: constraint validation, edge-case detection, and repeatable evaluation.
 
-<h3> Key Features </h3>
+<h3> 🔑 Key Features </h3>
 
 * Dataset-driven test cases defined in JSON
 * Pluggable chatbot routing (currently OpenAI)
@@ -15,7 +15,7 @@ The goal of this project is to explore practical testing strategies for AI syste
   * Response evaluation
 * Designed to be extended with additional invariants, models, and metrics
 
-<h3> Why This Exists </h3>
+<h3> ❓ Why This Exists </h3>
 
 Unlike traditional software, AI chatbot responses are probabilistic and may vary between runs. This project demonstrates how to test such systems by asserting behavioral constraints instead of exact outputs.
 
@@ -50,7 +50,7 @@ Run the runner script:
 ```
 python runner.py
 ```
-Example output:
+Example Output:
 ```
 max words is 100
 word count is 83
@@ -60,7 +60,7 @@ word count is 78
 Summary: 2/2 tests passed
 ```
 
-🔍 Example Test Case
+Example Test Case:
 ```
 {
   "id": "openai_100char_test1",
