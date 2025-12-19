@@ -7,7 +7,6 @@ from evals import eval_triage_manager
 def test_case_setup(json_file_name: str) -> dict:
     with open(json_file_name, "r") as file:
         data = json.load(file)
-    print(data)
     return data
 
 
