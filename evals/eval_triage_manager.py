@@ -10,7 +10,7 @@ def evaluate_response(response: str, invariant_type: str, invariant_var) -> bool
 def max_words_evaluation(response: str, invariant_var: int) -> bool:
     words_list = response.split()
     word_count = len(words_list)
-    print(f"invariant is {invariant_var}")
+    print(f"max word count is {invariant_var}")
     print(f"word count is {word_count}")
     if word_count <= invariant_var:
         return True

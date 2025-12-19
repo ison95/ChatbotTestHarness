@@ -41,5 +41,8 @@ def evaluate_response_from_chatbot(response: str, invariant_type: str, invariant
 if __name__ == "__main__":
     fetched_tests = test_case_setup("test_cases/max_char_test_cases.json")
     eval_results = run_test_cases(fetched_tests)
+    passed = sum(eval_results.values())
+    total = len(eval_results)
     print(eval_results)
+    print(f"Summary: {passed}/{total} tests passed")
 

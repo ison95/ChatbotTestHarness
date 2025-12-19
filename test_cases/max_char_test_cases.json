@@ -1,6 +1,6 @@
 [
   {
-    "id": "openai_100char_test1",
+    "id": "openai_max100char_test1",
     "bot": "openai",
     "model" : "gpt-5-nano",
     "prompt": "Summarize the plot of Hamlet in under 100 words.",
@@ -8,7 +8,7 @@
     "max_words": 100
   },
   {
-    "id": "openai_100char_test2",
+    "id": "openai_max100char_test2",
     "bot": "openai",
     "model" : "gpt-5-nano",
     "prompt": "Explain what a black hole is in under 100 words.",

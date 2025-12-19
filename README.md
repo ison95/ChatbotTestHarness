@@ -32,23 +32,31 @@ python3 -m venv venv
 source venv/bin/activate
 
 2. Install dependencies
+```
 pip install -r requirements.txt
+```
 
 3. Configure environment variables
-   * Create a .env file based on the provided example: OPENAI_API_KEY=your_api_key_here
+   * Create a .env file based on the provided example: 
+```
+OPENAI_API_KEY=your_api_key_here
+```
 
 Note: The .env file is intentionally excluded from version control.
 
 <h3> ▶️ Running the Tests </h3>
-python runner.py
+Run the runner script:
 
+```
+python runner.py
+```
 Example output:
 ```
-invariant is 100
+max words is 100
 word count is 83
-invariant is 100
+max words is 100
 word count is 78
-{'openai_100char_test1': True, 'openai_100char_test2': True}
+{'openai_max100char_test1': True, 'openai_max100char_test2': True}
 Summary: 2/2 tests passed
 ```
 
