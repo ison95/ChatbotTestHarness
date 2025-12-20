@@ -8,6 +8,7 @@ The goal of this project is to explore practical testing strategies for AI syste
 
 * Dataset-driven test cases defined in JSON
 * Pluggable chatbot routing (currently OpenAI)
+* Multiple runs per test case and pass rate evaluation
 * Invariant-based evaluation (e.g. max word count)
 * Clean separation between:
   * Chatbot triage
@@ -90,7 +91,6 @@ These are intentional to keep V1 minimal and focused.
 <h3> Future Enhancements (Planned) </h3>
 
 * Additional invariants (format, refusal handling, factual consistency)
-* Repeated runs and pass-rate analysis 
 * Bias and edge-case testing 
 * Multi-provider comparisons (e.g. Gemini, Claude)
 * Result persistence and trend analysis
