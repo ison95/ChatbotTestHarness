@@ -2,6 +2,9 @@ import json
 from chatbots import chat_model_triage_manager
 from evals import eval_triage_manager
 
+# GLOBAL VARS
+DEFAULT_RUNS_PER_TEST = 2
+
 
 # Fetches JSON data for test cases
 def test_case_setup(json_file_name: str) -> dict:
@@ -11,14 +14,34 @@ def test_case_setup(json_file_name: str) -> dict:
 
 
 # Determines the test cases to run and creates a dict for:
-# {Test Case ID : Result Evaluation}
+# {Test Case ID : pass rate}
 def run_test_cases(test_case_dict: dict) -> dict:
     results_dict = {}
     for t in test_case_dict:
-        resp = response_from_chatbot(t["bot"], t["model"], t["prompt"])
-        resp_eval = evaluate_response_from_chatbot(resp, t["invariant_type"], t[t["invariant_type"]])
-        results_dict[t["id"]] = resp_eval
+        result = process_one_test_case(t)
+        results_dict[t["id"]] = result
     return results_dict
+
+
+def process_one_test_case(test_case: dict) -> dict:
+    passed_runs = 0
+    failed_runs = 0
+    num_runs = max(DEFAULT_RUNS_PER_TEST, test_case.get("num_of_runs_override", DEFAULT_RUNS_PER_TEST))
+
+    for _ in range(num_runs):
+        resp = response_from_chatbot(test_case["bot"], test_case["model"], test_case["prompt"])
+        resp_eval = evaluate_response_from_chatbot(resp, test_case["invariant_type"],
+                                                   test_case[test_case["invariant_type"]])
+        if resp_eval:
+            passed_runs += 1
+        else:
+            failed_runs += 1
+
+    pass_rate = round(((passed_runs / num_runs) * 100), 1)
+    results = {"passes": passed_runs,
+               "fails": failed_runs,
+               "pass rate": pass_rate}
+    return results
 
 
 # TODO: Create a function that's responsible for storing the results of the run
@@ -41,8 +64,5 @@ def evaluate_response_from_chatbot(response: str, invariant_type: str, invariant
 if __name__ == "__main__":
     fetched_tests = test_case_setup("test_cases/max_char_test_cases.json")
     eval_results = run_test_cases(fetched_tests)
-    passed = sum(eval_results.values())
-    total = len(eval_results)
     print(eval_results)
-    print(f"Summary: {passed}/{total} tests passed")
 
