@@ -1,20 +1,23 @@
-<h2>README.md (V1) </h2>
-<h3> AI Chatbot Test Harness (V1) </h3>
+<h2>README.md (V2.1) </h2>
+<h3> AI Chatbot Test Harness (V2.1) </h3>
 This project is a lightweight, dataset-driven testing harness for evaluating the behavioral reliability of large language model (LLM) chatbots. It focuses on validating response invariants (e.g. maximum word count) rather than exact outputs, reflecting the non-deterministic nature of generative AI systems.
 
 The goal of this project is to explore practical testing strategies for AI systems using a traditional QA mindset: constraint validation, edge-case detection, and repeatable evaluation.
 
 <h3> 🔑 Key Features </h3>
 
-* Dataset-driven test cases defined in JSON
-* Pluggable chatbot routing (currently OpenAI)
-* Multiple runs per test case and pass rate evaluation
-* Invariant-based evaluation (e.g. max word count)
-* Clean separation between:
-  * Chatbot triage
-  * Model interaction
-  * Response evaluation
-* Designed to be extended with additional invariants, models, and metrics
+- Dataset-driven test cases defined in JSON
+- Pluggable chatbot routing (currently OpenAI)
+- Configurable repeated execution per test case
+- Pass/fail aggregation and pass-rate metrics
+- Invariant-based evaluation (e.g. max word count)
+- Persistent, timestamped JSON result artifacts per run
+- Clean separation between:
+  - Chatbot triage
+  - Model interaction
+  - Response evaluation
+- Designed to be extended with additional invariants, models, and metrics
+
 
 <h3> ❓ Why This Exists </h3>
 
@@ -79,6 +82,25 @@ Each test case specifies:
 * The prompt
 * The behavioral invariant to evaluate
 
+<h3> 📁 Result Persistence </h3>
+
+Each execution of the test harness generates a timestamped JSON file containing aggregated results for all test cases in that run.
+Example result file:
+
+```json
+{
+  "run_timestamp": "2025-12-22T16-44-20",
+  "results": {
+    "openai_max100char_test1": {
+      "bot": "openai",
+      "model": "gpt-5-nano",
+      "passes": 2,
+      "fails": 0,
+      "pass_rate": 100.0
+    }
+  }
+}
+```
 <h3> 🚧 Current Limitations (V1) </h3>
 
 * Single invariant type (max words)
