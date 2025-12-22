@@ -1,3 +1,5 @@
+import os
+import datetime
 import json
 from chatbots import chat_model_triage_manager
 from evals import eval_triage_manager
@@ -38,14 +40,25 @@ def process_one_test_case(test_case: dict) -> dict:
             failed_runs += 1
 
     pass_rate = round(((passed_runs / num_runs) * 100), 1)
-    results = {"passes": passed_runs,
+    results = {"bot": test_case["bot"],
+               "model": test_case["model"],
+               "passes": passed_runs,
                "fails": failed_runs,
-               "pass rate": pass_rate}
+               "pass_rate": pass_rate}
     return results
 
 
-# TODO: Create a function that's responsible for storing the results of the run
-def create_results_file(results_dict: dict):
+def create_results_file(results_dict: dict, test_filename: str):
+    os.makedirs("results", exist_ok=True)
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+    filename = f"results/{test_filename}_{timestamp}.json"
+    output = {
+        "run_timestamp": timestamp,
+        "results": results_dict
+    }
+
+    with open(filename, "w") as file:
+        json.dump(output, file, indent=2)
     return
 
 
@@ -62,7 +75,8 @@ def evaluate_response_from_chatbot(response: str, invariant_type: str, invariant
 
 
 if __name__ == "__main__":
-    fetched_tests = test_case_setup("test_cases/max_char_test_cases.json")
+    fetched_test_case_filename = "max_char_test_cases"
+    fetched_tests = test_case_setup(f"test_cases/{fetched_test_case_filename}.json")
     eval_results = run_test_cases(fetched_tests)
+    create_results_file(eval_results, fetched_test_case_filename)
     print(eval_results)
-
