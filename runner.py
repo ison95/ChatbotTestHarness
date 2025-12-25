@@ -15,8 +15,8 @@ def test_case_setup(json_file_name: str) -> dict:
     return data
 
 
-# Determines the test cases to run and creates a dict for:
-# {Test Case ID : pass rate}
+# Determines the test cases to run and creates a result dict.
+# Format: {Test Case ID : pass rate}
 def run_test_cases(test_case_dict: dict) -> dict:
     results_dict = {}
     for t in test_case_dict:
@@ -48,7 +48,7 @@ def process_one_test_case(test_case: dict) -> dict:
     return results
 
 
-def create_results_file(results_dict: dict, test_filename: str):
+def create_results_file(results_dict: dict, test_filename: str) -> None:
     os.makedirs("results", exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     filename = f"results/{test_filename}_{timestamp}.json"
@@ -79,4 +79,3 @@ if __name__ == "__main__":
     fetched_tests = test_case_setup(f"test_cases/{fetched_test_case_filename}.json")
     eval_results = run_test_cases(fetched_tests)
     create_results_file(eval_results, fetched_test_case_filename)
-    print(eval_results)
