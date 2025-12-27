@@ -106,7 +106,7 @@ Example result file:
 
 * Single invariant type (max words)
 * Single chatbot provider (OpenAI)
-* No result persistence or historical comparison
+* No result persistence
 * No statistical aggregation across runs
 
 These are intentional to keep V1 minimal and focused.
